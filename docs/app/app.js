@@ -63,7 +63,7 @@ var App = {
                 if (error) {
                     $('#info_accounts').html('<h2>No accounts</h2> ' + error.toString());
                 } else if (!data || data.length == 0) {
-                    $('#info_accounts').html('<h2>No accounts</h2> plz setup metamask accounts');
+                    $('#info_accounts').html('<h2>No accounts</h2> plz unlock metamask accounts and reload page');
                 } else {
                     App.account = data[0];
                     $('#info_accounts_owner').html('<a class="btn btn-info" href="' + App.network + '/address/' + App.account + '" target="_blank">' + App.account + '</a>');
