@@ -2,6 +2,7 @@
 ## Live Demo
 
 metamask turn on is required (done this way for easy check, "nostyle"-style)
+
 https://block-soft.github.io/hiddenContracts/
 
 ## Created Example
