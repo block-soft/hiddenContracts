@@ -20,7 +20,7 @@ MainContract.pay was changed to default function but all other logic the same
 
 https://ropsten.etherscan.io/address/0xc10c925654ad2b9a0a0e37808f61cdbf7d2fcf4b
 
-### Not Mathing Hidden
+### Not Matching Hidden
 
 without optimization
 
