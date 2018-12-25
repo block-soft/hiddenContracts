@@ -20,8 +20,6 @@ var ContractsData = {
 var Contracts = {
     mainContract : false,
 
-    _breakStrpos: 60,
-
     _save: function () {
         localStorage.setItem('ContractsData', JSON.stringify(ContractsData));
     },
@@ -134,9 +132,7 @@ var Contracts = {
                 Contracts.mainContract = tmp.at(ContractsData.mainAddress);
             }
 
-            var prep_bytecode = '0x' + ContractsData.hiddenData.bytecode.substr(0, 10) + ContractsData.hiddenData.bytecode.substr(Contracts._breakStrpos + 10);
-
-            Contracts.mainContract.countCode(prep_bytecode, function (e, data) {
+            Contracts.mainContract.countCode(Contracts._prepHidden(), function (e, data) {
                 if (e) {
                     UiAlerts.addError('MainContract.countCode Gas', e.toString());
                     return false;
@@ -150,6 +146,17 @@ var Contracts = {
             TXWrapper.cron_tx = ContractsData.current_tx;
             TXWrapper.cronning();
         }
+    },
+
+    _prepHidden : function() {
+        let code = '0x' + ContractsData.hiddenData.bytecode.substr(0, 10) + ContractsData.hiddenData.bytecode.substr(74);
+        /*let expected = '0x60806040526004361060485763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166312065fe08114604a578063d5503d5f14606e575b005b348015605557600080fd5b50605c6088565b60408051918252519081900360200190f35b6074608d565b604080519115158252519081900360200190f35b303190565b604051600090739e671657fea2427d5931e59b9a3b92eb68ac5182903480156108fc029184818181858888f1935050505015801560ce573d6000803e3d6000fd5b5060019050905600a165627a7a72305820a47187c66ada7841d5190ae5fff8d07c78a38449874f40fd272f99d0c37379b20029';
+        console.log('check');
+        console.log(expected == code);
+        for(let i = 12; i < code.length; i++) {
+            console.log('pos_' + i, expected[i], code[i]);
+        }*/
+        return code;
     },
 
     pushHiddenFinished : function (data) {
