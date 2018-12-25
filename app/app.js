@@ -1,17 +1,18 @@
-var App = {
-    version: 'soljson-v0.4.21+commit.dfe3193c.js', //solc compiler version
+const App = {
     solc: false, //global compiler object for solidity, preloaded
     account: false, //current metamask account
     network: '', //current metamask network
 
-    init: function () {
-        App._getCompiler();
+    init: async function () {
         App._getNetwork();
+        App._getSolc();
     },
 
     compile : function (title, code) {
         UiAlerts.addSuccess(title, 'compiling...');
-        var result_main = App.solc.compile(code, true);
+        console.log('solc', App.solc);
+
+        let result_main = App.solc.compile(code, true);
         if (result_main.errors) {
             $.each(result_main.errors, function (index, error) {
                 UiAlerts.addError(title, error);
@@ -19,6 +20,7 @@ var App = {
             return false;
         }
         UiAlerts.addSuccess(title, 'compiled');
+        console.log(result_main.contracts[':' + title]);
         return result_main.contracts[':' + title];
     },
 
@@ -32,11 +34,27 @@ var App = {
 
     _finished : 0,
 
-    _getCompiler: function () {
-        BrowserSolc.loadVersion(App.version, function (compiler) {
-            UiAlerts.addSuccess('solc', 'loaded');
-            App.solc = compiler;
-            App._setInitFinished();
+    _getSolc: async function () {
+        let version = await App._getSolcVersion();
+        App.solc = await App._getSolcCompiler(version);
+        App._setInitFinished();
+    },
+
+    _getSolcVersion: async function() {
+        return new Promise((resolve, reject) => {
+            BrowserSolc.getVersions(function (soljsonSources, soljsonReleases) {
+                resolve(soljsonReleases['0.4.25']);
+            });
+        });
+    },
+
+    _getSolcCompiler: async function (version) {
+        return new Promise((resolve, reject) => {
+            console.log('Version loading', version);
+            BrowserSolc.loadVersion(version, function (compiler) {
+                UiAlerts.addSuccess('solc', 'loaded');
+                resolve(compiler);
+            });
         });
     },
 

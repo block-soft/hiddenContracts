@@ -84,6 +84,8 @@ var Contracts = {
             if (!ContractsData.mainData) return false;
         }
 
+        console.log(ContractsData.mainData.bytecode);
+
         TXWrapper.title = 'MainContract';
         TXWrapper.action_title = '';
         TXWrapper.action_title_ing = 'deploying';
@@ -93,7 +95,7 @@ var Contracts = {
             ContractsData.current_step = 1;
             TXWrapper.init({
                 value: 0,
-                data: ContractsData.mainData.bytecode
+                data: '0x' + ContractsData.mainData.bytecode
             });
         } else {
             TXWrapper.cron_tx = ContractsData.current_tx;
@@ -170,7 +172,7 @@ var Contracts = {
             ContractsData.current_step = 3;
             TXWrapper.init({
                 value: 0,
-                data: ContractsData.hiddenData.bytecode
+                data: '0x' + ContractsData.hiddenData.bytecode
             });
         } else {
             TXWrapper.cron_tx = ContractsData.current_tx;

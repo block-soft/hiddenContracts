@@ -13,7 +13,7 @@ contract MainContract {
 
     }
 
-    function escrow(address payable created_address) public returns (bool) {
+    function escrow(address created_address) public returns (bool) {
         require (keccak256(at(created_address)) == code);
         created_address.transfer(address(this).balance);
         return true;
