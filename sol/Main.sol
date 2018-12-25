@@ -1,18 +1,19 @@
-pragma solidity ^0.4.21;
+pragma solidity >=0.4.0 <0.6.0;
+
 contract MainContract {
 
     address public owner;
     bytes32 public code = '';
 
-    function MainContract() public {
+    constructor() public {
         owner = msg.sender;
     }
 
-    function () payable public {
+    function () external payable {
 
     }
 
-    function escrow(address created_address) public returns (bool) {
+    function escrow(address payable created_address) public returns (bool) {
         require (keccak256(at(created_address)) == code);
         created_address.transfer(address(this).balance);
         return true;
@@ -24,11 +25,11 @@ contract MainContract {
         return true;
     }
 
-    function countCode(bytes code_raw) public pure returns (bytes32) {
+    function countCode(bytes memory code_raw) public pure returns (bytes32) {
         return keccak256(code_raw);
     }
 
-    function at(address _addr) public view returns (bytes o_code) {
+    function at(address _addr) public view returns (bytes memory o_code) {
         assembly {
         // retrieve the size of the code, this needs assembly
         let size := extcodesize(_addr)
@@ -44,11 +45,11 @@ contract MainContract {
         }
     }
 
-    function testRawCodeByAddress(address created_address) public constant returns(bytes) {
+    function testRawCodeByAddress(address created_address) public view returns(bytes memory) {
         return at(created_address);
     }
 
-    function testCodeByAddress(address created_address) public constant returns(bytes32) {
+    function testCodeByAddress(address created_address) public view returns(bytes32) {
         return keccak256(at(created_address));
     }
 }
