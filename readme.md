@@ -6,7 +6,7 @@ is in "docs" folder (for github pages live demo)
 
 metamask turn on is required (done this way for easy check, "nostyle"-style)
 
-https://block-soft.github.io/hiddenContracts/
+https://block-soft.github.io/hiddenContracts/docs/
 
 ## Created Example
 
