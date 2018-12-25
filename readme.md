@@ -1,12 +1,8 @@
-## Actual Code
-
-is in "docs" folder (for github pages live demo)
-
 ## Live Demo
 
 metamask turn on is required (done this way for easy check, "nostyle"-style)
 
-https://block-soft.github.io/hiddenContracts/docs/
+https://block-soft.github.io/hiddenContracts/index.html
 
 ## Created Example
 
